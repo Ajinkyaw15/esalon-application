@@ -1,0 +1,20 @@
+# Backend
+e-salon/target/
+e-salon/logs/
+e-salon/uploads/
+e-salon/.idea/
+
+# Frontend
+e-salon-frontend/node_modules/
+e-salon-frontend/dist/
+
+# Env & secrets
+.env
+.env.*
+*.log
+
+# IDE & Eclipse
+.idea/
+.vscode/
+.metadata/
+*.iml

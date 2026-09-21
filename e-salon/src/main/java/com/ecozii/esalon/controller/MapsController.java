@@ -22,9 +22,13 @@ public class MapsController {
     public ResponseEntity<List<SalonLocationResponse>> nearbySalons(
             @RequestParam Double latitude,
             @RequestParam Double longitude,
-            @RequestParam(defaultValue = "5.0") Double radiusKm) {
+            @RequestParam(defaultValue = "5.0") Double radiusKm,
+            @RequestParam(required = false) Long serviceId,
+            @RequestParam(required = false) String serviceName,
+            @RequestParam(defaultValue = "nearest") String sort) {
         return ResponseEntity.ok(
-                mapsService.findNearbySalons(latitude, longitude, radiusKm));
+                mapsService.findNearbySalons(
+                        latitude, longitude, radiusKm, serviceId, serviceName, sort));
     }
 
     // 2. Salons by city

@@ -48,7 +48,7 @@ export default function Hero({ onSearchCity, onNearMe, loading }: HeroProps) {
             onClick={onNearMe}
             disabled={loading}
           >
-            Near me
+            📍 Use My Current Location
           </button>
         </form>
       </div>

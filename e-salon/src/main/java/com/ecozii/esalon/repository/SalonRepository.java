@@ -20,8 +20,9 @@ public interface SalonRepository extends JpaRepository<Salon, Long> {
             "sin(radians(latitude)))) AS distance " +
             "FROM salons " +
             "WHERE is_active = true " +
-            "HAVING distance < :radiusKm " +
-            "ORDER BY rating DESC, distance ASC",
+            "AND latitude IS NOT NULL AND longitude IS NOT NULL " +
+            "HAVING distance <= :radiusKm " +
+            "ORDER BY distance ASC, rating DESC",
             nativeQuery = true)
     List<Salon> findNearbySalonsSortedByRating(
             @Param("latitude") Double latitude,

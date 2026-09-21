@@ -4,10 +4,18 @@ import type { SalonLocation } from '../types'
 export const getNearbySalons = (
   latitude: number,
   longitude: number,
-  radiusKm = 10,
+  radiusKm = 5,
+  options?: { serviceId?: number; serviceName?: string; sort?: string },
 ) =>
   api.get<SalonLocation[]>('/maps/nearby', {
-    params: { latitude, longitude, radiusKm },
+    params: {
+      latitude,
+      longitude,
+      radiusKm,
+      serviceId: options?.serviceId,
+      serviceName: options?.serviceName,
+      sort: options?.sort ?? 'nearest',
+    },
   })
 
 export const getSalonsByCity = (city: string) =>

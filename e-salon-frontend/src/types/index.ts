@@ -39,7 +39,7 @@ export interface Salon {
   workingDays?: string
 }
 
-/** Salon with distance + map links from /api/maps */
+/** Salon with distance + map links from /api/maps or /api/salons/nearby */
 export interface SalonLocation {
   id: number
   name: string
@@ -51,7 +51,24 @@ export interface SalonLocation {
   googleMapsUrl: string
   rating: number
   phone: string
+  imageUrl?: string
+  openingTime?: string
+  closingTime?: string
+  services?: string[]
+  nextAvailableSlot?: string
+  offersRequestedService?: boolean
 }
+
+export type NearbySort = 'nearest' | 'farthest' | 'recommended' | 'available_soon'
+
+export type LocationStatus =
+  | 'idle'
+  | 'detecting'
+  | 'detected'
+  | 'denied'
+  | 'unavailable'
+  | 'timeout'
+  | 'unsupported'
 
 export interface Service {
   id: number

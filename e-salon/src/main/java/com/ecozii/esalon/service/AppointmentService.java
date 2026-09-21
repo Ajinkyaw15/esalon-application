@@ -156,6 +156,36 @@ public class AppointmentService {
         return slots;
     }
 
+    /** First remaining slot today after now, otherwise the first slot tomorrow. */
+    public String getNextAvailableSlot(Long salonId, LocalDate date) {
+        List<String> today = getAvailableSlots(salonId, date);
+        java.time.LocalTime now = java.time.LocalTime.now(java.time.ZoneId.of("Asia/Kolkata"));
+        for (String slot : today) {
+            try {
+                if (java.time.LocalTime.parse(slot).isAfter(now)) {
+                    return date + " " + formatSlot(slot);
+                }
+            } catch (Exception ignored) {
+                return date + " " + slot;
+            }
+        }
+        LocalDate tomorrow = date.plusDays(1);
+        List<String> nextDay = getAvailableSlots(salonId, tomorrow);
+        if (!nextDay.isEmpty()) {
+            return tomorrow + " " + formatSlot(nextDay.get(0));
+        }
+        return null;
+    }
+
+    private String formatSlot(String slot) {
+        try {
+            java.time.LocalTime time = java.time.LocalTime.parse(slot);
+            return time.toString();
+        } catch (Exception ex) {
+            return slot;
+        }
+    }
+
     // ── Helper ──────────────────────────────────────────────────────
     private AppointmentResponse mapToResponse(Appointment a,
                                               String salonName, String serviceName,
